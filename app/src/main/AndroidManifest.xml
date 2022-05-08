@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KaKotJingrwai01">
         <activity
+            android:name=".DisplayHymn"
+            android:exported="false" />
+        <activity
             android:name=".userProfile"
             android:exported="false" />
         <activity

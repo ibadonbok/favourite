@@ -34,9 +34,9 @@ public class Login extends AppCompatActivity {
 
         loginBinding.loginbtn.setOnClickListener(V->{
             loginBinding.progressBar2.setVisibility(View.VISIBLE);
-            if (!loginBinding.lusername.getText().toString().isEmpty() | loginBinding.lusername.getText().toString().contains("@")){
-                if(!loginBinding.lpass.getText().toString().isEmpty()){
-                    LoginUser(loginBinding.lusername.getText().toString(),loginBinding.lpass.getText().toString());
+            if (!loginBinding.lusername.getEditText().getText().toString().isEmpty() | loginBinding.lusername.getEditText().getText().toString().contains("@")){
+                if(!loginBinding.lpass.getEditText().getText().toString().isEmpty()){
+                    LoginUser(loginBinding.lusername.getEditText().getText().toString(),loginBinding.lpass.getEditText().getText().toString());
                 }else{
                     //Toast
                     Toast.makeText(this, "invalid password", Toast.LENGTH_SHORT).show();
@@ -56,8 +56,6 @@ public class Login extends AppCompatActivity {
 
     private void LoginUser(String email, String passwords) {
         loginBinding.loginbtn.setEnabled(false);
-        Toast.makeText(this, "email"+email+" pass:  "+passwords, Toast.LENGTH_SHORT).show();
-
         firebaseAuth.signInWithEmailAndPassword(email,passwords).addOnCompleteListener(task -> {
               if(task.isSuccessful()){
                   Intent intent = new Intent(getApplicationContext(), user_home.class);

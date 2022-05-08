@@ -58,10 +58,7 @@ public class user_home extends AppCompatActivity {
 
 
         auth = FirebaseAuth.getInstance();
-        Toast.makeText(this, "Login Successfully with id " + auth.getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
-        Toast.makeText(this, "Login Successfully with email " + auth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
-
-        homeBinding.logout.setOnClickListener(V -> {
+            homeBinding.logout.setOnClickListener(V -> {
             auth.signOut();
             startActivity(new Intent(getApplicationContext(), Login.class));
             finish();

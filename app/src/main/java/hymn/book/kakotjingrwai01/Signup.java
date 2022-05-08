@@ -2,16 +2,25 @@ package hymn.book.kakotjingrwai01;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import hymn.book.kakotjingrwai01.databinding.ActivitySignupBinding;
 //
@@ -20,16 +29,13 @@ import hymn.book.kakotjingrwai01.databinding.ActivitySignupBinding;
 
 public class Signup extends AppCompatActivity {
 
-    private EditText susername, semail, spass,age;
-    private Button signup;
-//    private DatabaseHelper myDB;
-
-    //add activity binding class
     private ActivitySignupBinding signupBinding;
+    private FirebaseAuth firebaseAuth;
+    private FirebaseFirestore userDb;
 
-    private FirebaseAuth firebaseAuth;   //firebase authentication
+    private static String GENDER = null;
+    private static ArrayList<Integer> FieldsLength = new ArrayList<Integer>();
 
-    //FirebaseFirestore firebasestore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,50 +45,188 @@ public class Signup extends AppCompatActivity {
         setContentView(signupBinding.getRoot());
 
         firebaseAuth = FirebaseAuth.getInstance();
-        //firebasestore = Firebasestore.getInstance();
 
-        //susername=getCurrentUser().getUid();
+        signupBinding.signupbutton.setEnabled(false);
 
-        //DocumentReference documentreference=firebasestore.collection("user").document(username);
 
         signupBinding.signupbutton.setOnClickListener(v -> {
-            if (signupBinding.susername.getText().length() >= 3 | !signupBinding.susername.getText().toString().isEmpty()) {
-                if (!signupBinding.semail.getText().toString().isEmpty() | signupBinding.semail.getText().toString().contains("@")) {
-                    if (!signupBinding.spassword.getText().toString().isEmpty() | signupBinding.spassword.getText().toString().length() >= 6) {
-                        signup(signupBinding.susername.getText().toString(), signupBinding.semail.getText().toString().trim(), signupBinding.spassword.getText().toString().trim(),signupBinding.sage.getText().toString().trim());
+            if (signupBinding.userName.getEditText().getText().length() >= 3 | !signupBinding.userName.getEditText().getText().toString().isEmpty()) {
+                if (!signupBinding.email.getEditText().getText().toString().isEmpty() | signupBinding.email.getEditText().getText().toString().contains("@")) {
+                    if (!signupBinding.age.getEditText().getText().toString().isEmpty() | signupBinding.age.getEditText().getText().toString().length() != 0) {
+                        if (getGender()) {
+                            if (password(signupBinding.password1.getEditText().getText().toString(), signupBinding.password2.getEditText().getText().toString())) {//        Button Click Action
+                                signupBinding.signupbutton.setEnabled(true);
+                                signup(signupBinding.userName.getEditText().getText().toString(),
+                                        signupBinding.email.getEditText().getText().toString(),
+                                        signupBinding.password1.getEditText().getText().toString(),
+                                        signupBinding.age.getEditText().getText().toString(),
+                                        GENDER);
+
+                            } else {
+                                Toast.makeText(this, "Password MissMatch", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(this, "Select a Gender!", Toast.LENGTH_SHORT).show();
+                        }
+
                     } else {
-                        Toast.makeText(this, "Enter A valid password!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Age can't be empty!", Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(this, "Enter A valid email!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Enter A valid email ID!", Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(this, "Enter A valid username!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "name can't be empty!", Toast.LENGTH_SHORT).show();
             }
         });
 
 
-        //myDB = new DatabaseHelper(this);
+        signupBinding.userName.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-        //insertuser();
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (FieldsLength.size() >= 5) {
+                    signupBinding.signupbutton.setEnabled(true);
+                } else {
+                    FieldsLength.add(1);
+                    signupBinding.signupbutton.setEnabled(false);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        signupBinding.email.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (FieldsLength.size() >= 5) {
+                    signupBinding.signupbutton.setEnabled(true);
+                } else {
+                    FieldsLength.add(2);
+                    signupBinding.signupbutton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        signupBinding.age.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (FieldsLength.size() >= 5) {
+                    signupBinding.signupbutton.setEnabled(true);
+                } else {
+                    signupBinding.signupbutton.setEnabled(false);
+                    FieldsLength.add(3);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        signupBinding.password1.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (FieldsLength.size() >= 5) {
+                    signupBinding.signupbutton.setEnabled(true);
+
+                } else {
+                    FieldsLength.add(4);
+                    signupBinding.signupbutton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        signupBinding.password2.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (FieldsLength.size() >= 5) {
+                    signupBinding.signupbutton.setEnabled(true);
+                } else {
+                    FieldsLength.add(5);
+                    signupBinding.signupbutton.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    private boolean getGender() {
+        if (signupBinding.male.isChecked()) {
+            GENDER = "Male";
+            return true;
+
+        }
+        if (signupBinding.female.isChecked()) {
+            GENDER = "Female";
+            return true;
+        }
+        if (signupBinding.others.isChecked()) {
+            GENDER = "Other";
+            return true;
+        } else {
+            GENDER = null;
+            return false;
+        }
 
     }
 
-    private void signup(String username, String email, String spassword,String age) {
+    private boolean password(String text, String text1) {
+        return text.equals(text1);
+    }
+
+    private void signup(String username, String email, String password, String age, String gender) {
         signupBinding.signupbutton.setEnabled(false);
         signupBinding.progressBar.setVisibility(View.VISIBLE);
-        Toast.makeText(this, "email" + email + "password " + spassword, Toast.LENGTH_SHORT).show();
-        //for registration
-        firebaseAuth.createUserWithEmailAndPassword(email,spassword)
+
+//        for registration
+        firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(this, response -> {
                    if(response.isSuccessful()) {
-                       String userid =firebaseAuth.getUid();
-                       Toast.makeText(this, "User Registered successfully "+userid, Toast.LENGTH_SHORT).show();
-                       //Toast.makeText(this, "reponse"+response.getResult().toString(), Toast.LENGTH_SHORT).show();
-                       Intent intent=new Intent(Signup.this,Login.class);
-                       startActivity(intent);
-                       finish();
+                       SavedUserDetails(username,age,gender);
+
                    }else{
                        Toast.makeText(this, response.getException().toString(), Toast.LENGTH_SHORT).show();
                    }
@@ -91,45 +235,39 @@ public class Signup extends AppCompatActivity {
                 });
     }
 
-    // private void insertuser() {
-//        signup.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//             /*   String user = susername.getText().toString();
-//                String email = semail.getText().toString();
-//                String pass = spass.getText().toString();
-//
-//                Boolean checkusers = null;
-//                if (user.equals("") || email.equals("") || pass.equals("")) {
-//                    Toast.makeText(Signup.this, "Please Enter All the fields", Toast.LENGTH_SHORT).show();
-//                    checkusers = myDB.checkusername(user);
-//                }
-//
-//                if (checkusers == false)
-//                {
-//                    Boolean insert = myDB.Signup(user,email, pass);
-//                    if(insert==true)
-//                    {
-//                        Toast.makeText(Signup.this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
-//                    }
-//                    else
-//                        Toast.makeText(Signup.this, "Failed to Signup", Toast.LENGTH_SHORT).show();
-//                }
-//                else
-//                {
-//                    Toast.makeText(Signup.this, "User Already Exist", Toast.LENGTH_SHORT).show();
-//                }*/
-//
-//
-//                boolean var = myDB.Signup(susername.getText().toString(), semail.getText().toString(), spass.getText().toString());
-//                if (var == true)
-//
-//                    Toast.makeText(Signup.this, "User Register Successfuly", Toast.LENGTH_SHORT).show();
-//                else
-//                    Toast.makeText(Signup.this, "Failed to Register", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-    //}
+    private void SavedUserDetails(String username, String age, String gender) {
+        Map<String,String> userDetails = new HashMap<>();
+        userDetails.put("NAME",username);
+        userDetails.put("AGE",age);
+        userDetails.put("GENDER",gender);
+        userDetails.put("PROFILE_URI","null");
+        userDetails.put("USERTYPE","NormalUser");
+
+        userDb = FirebaseFirestore.getInstance();
+        firebaseAuth = FirebaseAuth.getInstance();
+
+        userDb.collection("USERS")
+                .document(firebaseAuth.getCurrentUser().getUid())
+                .set(userDetails)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            Toast.makeText(Signup.this, "User Registered Successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent=new Intent(Signup.this,Login.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(Signup.this, "Internal Error "+e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+
 }
 
