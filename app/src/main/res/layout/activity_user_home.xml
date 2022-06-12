@@ -29,13 +29,13 @@
             android:id="@+id/number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Number" />
+            android:text="All Hymn Numbers" />
 
         <Button
             android:id="@+id/khorus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="khorus" />
+            android:text="Chorus" />
 
         <Button
             android:id="@+id/khynnah"

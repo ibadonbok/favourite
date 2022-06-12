@@ -52,6 +52,7 @@ public class Login extends AppCompatActivity {
             startActivity(new Intent(getApplicationContext(),Signup.class));
             finish();
         });
+
     }
 
     private void LoginUser(String email, String passwords) {
@@ -69,4 +70,9 @@ public class Login extends AppCompatActivity {
         loginBinding.loginbtn.setEnabled(true);
     }
 
+    public void forgotPassword(View view) {
+        startActivity(new Intent(getApplicationContext(),ResetPassword.class));
+        finish();
+
+    }
 }

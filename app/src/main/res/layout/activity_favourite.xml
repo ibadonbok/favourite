@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".favourite">
+
+    <ImageButton
+        android:id="@+id/FavBackBtn1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/transparent"
+        android:src="@drawable/back_icon"
+        app:layout_constraintBottom_toTopOf="@+id/FavSearch"
+        app:layout_constraintEnd_toStartOf="@+id/FavHeading"
+        app:layout_constraintHorizontal_bias="0.195"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/FavHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="96dp"
+        android:layout_marginEnd="123dp"
+        android:text="Favourite List"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toTopOf="@+id/FavSearch"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/FavBackBtn1"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.466" />
+
+    <SearchView
+        android:id="@+id/FavSearch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:background="@drawable/searchview_background"
+        android:iconifiedByDefault="false"
+        android:outlineAmbientShadowColor="@color/transparent"
+        android:queryHint="search..."
+        android:searchIcon="@drawable/ic_action_search"
+        android:theme="@style/ThemeOverlay.search"
+
+        app:layout_constraintBottom_toTopOf="@+id/FavRecyclerView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/FavBackBtn1"
+        app:layout_constraintVertical_bias="0.002" />
+
+    <!--recycler view to display our data-->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/FavRecyclerView"
+        android:layout_width="396dp"
+        android:layout_height="550dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/search_view_bg"
+
+
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.785"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/FavSearch" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

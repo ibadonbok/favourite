@@ -10,25 +10,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KaKotJingrwai01">
         <activity
+            android:name=".addHymn"
+            android:exported="false" />
+        <activity
+            android:name=".ADMIN_HOMEPAGE"
+            android:exported="false" />
+        <activity
+            android:name=".forgotPassword"
+            android:exported="false" />
+        <activity
+            android:name=".DisplayChorus"
+            android:exported="false" />
+        <activity
+            android:name=".chorus1"
+            android:exported="false" />
+        <activity
+            android:name=".favourite"
+            android:exported="false" />
+        <activity
             android:name=".DisplayHymn"
             android:exported="false" />
         <activity
             android:name=".userProfile"
             android:exported="false" />
         <activity
-            android:name=".hymn_view"
-            android:exported="false" />
-        <activity
             android:name=".note_saved"
-            android:exported="false" />
-        <activity
-            android:name=".note"
-            android:exported="false" />
-        <activity
-            android:name=".numberlistview"
-            android:exported="false" />
-        <activity
-            android:name=".khorus_number"
             android:exported="false" />
         <activity
             android:name=".hymn_number"

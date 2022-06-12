@@ -2,21 +2,22 @@ package hymn.book.kakotjingrwai01;
 
 class HymnModel {
 
-   private String number,title,author,lyrics;
+   private String id,title,author,lyric;
 
-   public HymnModel(String number, String title, String author, String lyrics) {
-      this.number = number;
+   public HymnModel(String id, String title, String author, String lyric) {
+      this.id = id;
       this.title = title;
       this.author = author;
-      this.lyrics = lyrics;
+      this.lyric = lyric;
+      //this.share = share;
    }
 
-   public String getNumber() {
-      return number;
+   public String getId() {
+      return id;
    }
 
-   public void setNumber(String number) {
-      this.number = number;
+   public void setId(String id) {
+      this.id = id;
    }
 
    public String getTitle() {
@@ -35,11 +36,16 @@ class HymnModel {
       this.author = author;
    }
 
-   public String getLyrics() {
-      return lyrics;
+   public String getLyric() {
+      return lyric;
    }
 
-   public void setLyrics(String lyrics) {
-      this.lyrics = lyrics;
+   public void setLyric(String lyric) {
+      this.lyric = lyric;
    }
+
+  // public String getShare() {return share;}
+
+   //public void setShare(String share) { this.share = share; }
+
 }

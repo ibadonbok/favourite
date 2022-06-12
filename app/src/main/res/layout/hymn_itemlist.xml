@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:id="@+id/hymncard"
     android:layout_margin="5dp"
@@ -13,7 +14,7 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/hymnRNumbre"
+                android:id="@+id/hymnRNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -33,9 +34,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:text="Title: tile"
-                app:layout_constraintBottom_toBottomOf="@+id/hymnRNumbre"
-                app:layout_constraintStart_toEndOf="@+id/hymnRNumbre"
-                app:layout_constraintTop_toTopOf="@+id/hymnRNumbre" />
+                app:layout_constraintBottom_toBottomOf="@+id/hymnRNumber"
+                app:layout_constraintStart_toEndOf="@+id/hymnRNumber"
+                app:layout_constraintTop_toTopOf="@+id/hymnRNumber" />
 
             <TextView
                 android:id="@+id/AuthorR"
@@ -46,6 +47,17 @@
                 app:layout_constraintBottom_toBottomOf="@+id/TitleR"
                 app:layout_constraintStart_toEndOf="@+id/TitleR"
                 app:layout_constraintTop_toTopOf="@+id/TitleR" />
+
+            <ImageButton
+                android:id="@+id/FavButton"
+                android:layout_width="61dp"
+                android:layout_height="47dp"
+                android:background="@color/transparent"
+                android:gravity="bottom|end"
+                android:src="@drawable/ic_baseline_favorite_24"
+                android:padding="2dp"
+                tools:layout_editor_absoluteX="337dp"
+                tools:layout_editor_absoluteY="4dp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

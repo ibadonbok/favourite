@@ -10,11 +10,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import hymn.book.kakotjingrwai01.databinding.ActivityDashBoardBinding;
-import hymn.book.kakotjingrwai01.databinding.ActivityNumberlistviewBinding;
+
 import hymn.book.kakotjingrwai01.databinding.ActivityUserHomeBinding;
 
 public class user_home extends AppCompatActivity {
+
 
     private FirebaseAuth auth;
     private ActivityUserHomeBinding homeBinding;
@@ -29,13 +29,13 @@ public class user_home extends AppCompatActivity {
         setContentView(homeBinding.getRoot());
 
         homeBinding.number.setOnClickListener(view -> {
-            Intent intent = new Intent(user_home.this, hymn_number.class);
+            Intent intent = new Intent(user_home.this, ADMIN_HOMEPAGE.class);
             startActivity(intent);
         });
 
 
         homeBinding.khorus.setOnClickListener(view -> {
-            Intent khorus = new Intent(user_home.this, khorus_number.class);
+            Intent khorus = new Intent(user_home.this, chorus1.class);
             startActivity(khorus);
 
         });

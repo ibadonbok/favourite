@@ -57,10 +57,10 @@ public class userProfile extends AppCompatActivity {
                             String name = task.getResult().get("NAME").toString();
                             String age = task.getResult().get("AGE").toString();
                             String gender = task.getResult().get("GENDER").toString();
-                            userProfileBinding.yourName.setText(name);
-                            userProfileBinding.age.setText(age);
-                            userProfileBinding.yourEmail.setText(firebaseAuth.getCurrentUser().getEmail());
-                            userProfileBinding.gender.setText(gender);
+                            userProfileBinding.yourFullname1.setText(name);
+                            userProfileBinding.profileAge1.setText(age);
+                            userProfileBinding.yourEmail1.setText(firebaseAuth.getCurrentUser().getEmail());
+                            userProfileBinding.profilegender1.setText(gender);
                         }
                     }
 

@@ -12,14 +12,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:backgroundTint="@color/transparent"
         android:src="@drawable/back_icon"
+        app:layout_constraintEnd_toStartOf="@+id/hymnHeading"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/hymnHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Hymn"
@@ -37,7 +39,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="Hymn Number: 1"
-        android:textSize="20sp"
+        android:textSize="15sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/HBackBtn" />
 
@@ -45,46 +47,71 @@
         android:id="@+id/Htitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="21dp"
         android:text="Hymn Title: hey author"
-        android:textSize="14sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toEndOf="@+id/Hauthor"
-        app:layout_constraintTop_toBottomOf="@+id/Hnumber" />
+        app:layout_constraintTop_toBottomOf="@+id/Hnumber"
+        android:textAlignment="center"/>
     <TextView
         android:id="@+id/Hauthor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:text="Hymn Author: hey author"
-        android:textSize="14sp"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Hnumber" />
+        app:layout_constraintTop_toBottomOf="@+id/Hnumber"
+        android:layout_marginLeft="5dp" />
+
+
+
+
+    <ImageButton
+        android:id="@+id/hymnShare"
+        android:layout_width="35dp"
+        android:layout_height="27dp"
+        android:layout_marginStart="106dp"
+        android:layout_marginTop="14dp"
+        android:layout_marginEnd="33dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/ic_outline_share_24"
+        app:layout_constraintBottom_toTopOf="@+id/Htitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/hymnHeading"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         android:fillViewport="true"
+        android:padding="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Hauthor"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/Hlyric"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="10dp"
+                android:layout_width="364dp"
+                android:layout_height="528dp"
+                android:layout_margin="20dp"
+                android:background="@color/white"
                 android:gravity="start"
-                android:textSize="12sp" />
+                android:textColor="@drawable/skyblue"
+                android:textSize="20sp"
+                android:textStyle="normal" />
 
         </LinearLayout>
     </ScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
